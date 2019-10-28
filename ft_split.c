@@ -10,16 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "libft.h"
 
-static void		ft_free(char **tab)
-{
-	while (*tab != NULL)
-		free(*tab++);
-	free(tab);
-}
-
-static	int		ft_word(char const *str, int i, int *nbword, int c)
+static	int		ft_wlen(char const *str, int i, int *nbword, int c)
 {
 	*nbword += 1;
 	while (str[i] != c && str[i] != '\0')
@@ -27,61 +21,76 @@ static	int		ft_word(char const *str, int i, int *nbword, int c)
 	return (i);
 }
 
-static	int		ft_add_word(char **tab, char const *str, int *nbword, int c)
+static	void	ft_free(char **tab, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i > n)
+		free(tab[i++]);
+	free(tab);
+	tab = NULL;
+}
+
+static	int		ft_fill(char **tab, char const *str, int *nbword, int c)
 {
 	int		wlen;
 	int		j;
-	char	*words;
-	int		i;
+	char	*tmp;
+	int		sv;
 
 	wlen = 0;
-	i = 0;
+	sv = 0;
 	while (str[wlen] != c && str[wlen] != '\0')
 		wlen++;
-	if (!(words = (char *)malloc((wlen + 1) * sizeof(char))))
+	if (!(tmp = (char *)malloc((wlen + 1) * sizeof(char))))
 	{
-		ft_free(tab);
-		return (-1);
+		ft_free(tab, *nbword);
+		*nbword = 0;
+		return (ft_strlen(str));
 	}
-	words[wlen] = '\0';
+	tmp[wlen] = '\0';
 	j = 0;
-	while (i < wlen)
+	while (sv < wlen)
 	{
-		words[j++] = str[i++];
+		tmp[j] = str[sv++];
+		j++;
 	}
-	tab[*nbword] = words;
+	tab[*nbword] = tmp;
 	*nbword += 1;
 	return (wlen);
+}
+
+static	void	reset(int *i, int *j)
+{
+	*i = 0;
+	*j = 0;
 }
 
 char			**ft_split(char const *str, char c)
 {
 	int		i;
 	char	**tab;
-	int		count;
+	int		number_words;
 
-	if (str == NULL || !c)
+	reset(&i, &number_words);
+	if (!str)
 		return (NULL);
-	i = 0;
-	count = 0;
 	while (str[i] != '\0')
 		if (str[i] != c)
-			i = ft_word(str, i, &count, c);
+			i = ft_wlen(str, i, &number_words, c);
 		else
 			i++;
-	if ((tab = (char **)malloc((count + 1) * sizeof(char *))) == NULL)
+	if (!(tab = (char **)malloc((number_words + 1) * sizeof(char *))))
 		return (NULL);
-	tab[count] = 0;
-	i = 0;
-	count = 0;
+	tab[number_words] = 0;
+	reset(&i, &number_words);
 	while (str[i] != '\0')
 		if (str[i] != c)
-		{
-		    if (ft_add_word(tab, str + i, &count, c) == -1)
-			    return (NULL);
-		    i += ft_add_word(tab, str + i, &count, c);
-		}
+			i += ft_fill(tab, str + i, &number_words, c);
 		else
-		    i++;
+			i++;
+	if (!number_words && !tab)
+		return (NULL);
 	return (tab);
 }
