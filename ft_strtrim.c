@@ -12,62 +12,41 @@
 
 #include "libft.h"
 
-static int		fpos(char const *str, char const *set)
+static	int	findset(char c, char const *set)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
 
 	i = 0;
-	j = 0;
-	while (1)
-	{
-		if (!str[j] || i == ft_strlen(set) + 1)
-			break ;
-		if (str[j] == set[i])
-		{
-			j++;
-			i = 0;
-		}
-		else
-			i++;
-	}
-	return (j);
+	while (set[i] != '\0')
+		if (set[i++] == c)
+			return (1);
+	return (0);
 }
 
-static int		lpos(char const *str, char const *set)
+char		*ft_strtrim(char const *s1, char const *set)
 {
-	size_t	i;
-	size_t	j;
+	int		setlen;
+	int		slen;
+	int		srt;
+	int		end;
+	char	*p;
 
-	i = 0;
-	j = ft_strlen(str) - 1;
-	while (1)
-	{
-		if (!str[j] || i == ft_strlen(set) + 1)
-			break ;
-		if (str[j] == set[i])
-		{
-			j--;
-			i = 0;
-		}
-		else
-			i++;
-	}
-	return (j);
-}
-
-char			*ft_strtrim(char const *s1, char const *set)
-{
-	char	*new;
-
-	if (!s1)
+	srt = 0;
+	end = 0;
+	if (!s1 || !set)
 		return (NULL);
-	new = ft_substr(s1, fpos(s1, set), lpos(s1, set) - fpos(s1, set) + 1);
-	if (new == NULL)
+	setlen = ft_strlen(set);
+	slen = ft_strlen(s1);
+	while (findset(s1[srt], set))
+		srt++;
+	while (findset(s1[slen - 1 - end], set))
+		end++;
+	if ((srt + end) >= slen)
 	{
-		if ((new = malloc(1)) == NULL)
+		if (!(p = (char *)malloc(1)))
 			return (NULL);
-		*new = '\0';
+		*p = '\0';
+		return (p);
 	}
-	return (new);
+	return (ft_substr(s1, srt, slen - end - srt));
 }
