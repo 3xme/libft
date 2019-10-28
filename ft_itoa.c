@@ -12,49 +12,67 @@
 
 #include "libft.h"
 
-static int	nlen(long n)
-{
-	int		len;
+#include "libft.h"
 
-	len = 0;
-	if (n <= 0)
-	{
-		n = -n;
-		len++;
-	}
-	while (n > 0)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
+static	char	*zero(void)
+{
+	char	*ret;
+
+	ret = (char *)malloc(2);
+	ret[0] = '0';
+	ret[1] = '\0';
+	return (ret);
 }
 
-char		*ft_itoa(int n)
+static	int		calculate(unsigned int n)
 {
-	char	*str;
-	int		i;
-	long	nb;
+	int	i;
 
-	nb = n;
-	i = nlen(nb);
-	if (!(str = (char*)malloc(i + 1)))
+	i = 0;
+	while (n > 0)
+	{
+		i++;
+		n /= 10;
+	}
+	return (i);
+}
+
+static	int		det_n(unsigned int *tmp, int n)
+{
+	if (n < 0)
+	{
+		*tmp = -n;
+		return (1);
+	}
+	*tmp = (unsigned int)n;
+	return (0);
+}
+
+char			*ft_itoa(int n)
+{
+	int				len;
+	int				signe;
+	unsigned	int	tmp;
+	char			*ret;
+
+	len = 0;
+	signe = 0;
+	tmp = n;
+	if (n == 0)
+		return (ret = zero());
+	else
+		signe = det_n(&tmp, n);
+	len = calculate(tmp);
+	if (!(ret = (char *)malloc(len + signe + 1)))
 		return (NULL);
-	str[i--] = '\0';
-	if (nb == 0)
+	*(ret + len-- + signe) = '\0';
+	while (tmp > 0)
 	{
-		str[0] = '0';
-		return (str);
+		*(ret + len + signe) = tmp % 10 + '0';
+		len--;
+		tmp /= 10;
 	}
-	if (nb < 0)
-	{
-		nb = -nb;
-		str[0] = '-';
-	}
-	while (nb > 0)
-	{
-		str[i--] = (nb % 10) + 48;
-		nb /= 10;
-	}
-	return (str);
+	if (signe)
+		*ret = '-';
+	return (ret);
 }
