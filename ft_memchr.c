@@ -6,7 +6,7 @@
 /*   By: abiari <abiari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:10:01 by abiari            #+#    #+#             */
-/*   Updated: 2019/10/23 12:22:17 by abiari           ###   ########.fr       */
+/*   Updated: 2019/10/21 12:43:51 by abiari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	*ft_memchr(const void *buf, int ch, size_t lenght)
 {
-	unsigned int	    i;
-	const unsigned char *string;
+	unsigned int	i;
+	char			*string;
 
-	string = buf;
+	string = (char*)buf;
 	i = 0;
 	while (i < lenght)
 	{
-		if (string[i] == (unsigned char)ch)
-			return ((void *)(buf + i));
+		if (string[i] == ch)
+			return (&string[i]);
 		i++;
 	}
 	return (NULL);

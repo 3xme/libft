@@ -6,15 +6,13 @@
 /*   By: abiari <abiari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 11:36:40 by abiari            #+#    #+#             */
-/*   Updated: 2019/10/22 15:19:58 by abiari           ###   ########.fr       */
+/*   Updated: 2019/10/28 08:01:29 by abiari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-#include "libft.h"
-
-static	char	*zero(void)
+static	char	*ft_zero(void)
 {
 	char	*ret;
 
@@ -24,7 +22,7 @@ static	char	*zero(void)
 	return (ret);
 }
 
-static	int		calculate(unsigned int n)
+static	int		ft_len(unsigned int n)
 {
 	int	i;
 
@@ -37,7 +35,7 @@ static	int		calculate(unsigned int n)
 	return (i);
 }
 
-static	int		det_n(unsigned int *tmp, int n)
+static	int		ft_neg(unsigned int *tmp, int n)
 {
 	if (n < 0)
 	{
@@ -52,17 +50,17 @@ char			*ft_itoa(int n)
 {
 	int				len;
 	int				signe;
-	unsigned	int	tmp;
+	unsigned int	tmp;
 	char			*ret;
 
 	len = 0;
 	signe = 0;
 	tmp = n;
 	if (n == 0)
-		return (ret = zero());
+		return (ret = ft_zero());
 	else
-		signe = det_n(&tmp, n);
-	len = calculate(tmp);
+		signe = ft_neg(&tmp, n);
+	len = ft_len(tmp);
 	if (!(ret = (char *)malloc(len + signe + 1)))
 		return (NULL);
 	*(ret + len-- + signe) = '\0';

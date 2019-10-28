@@ -6,7 +6,7 @@
 /*   By: abiari <abiari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 17:33:41 by abiari            #+#    #+#             */
-/*   Updated: 2019/10/23 12:11:09 by abiari           ###   ########.fr       */
+/*   Updated: 2019/10/23 15:33:44 by abiari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	ft_bzero(void *dst, size_t nbyte)
 {
-    if (n > 0)
-	ft_memset(dst, 0, n);
+	if (nbyte > 0)
+		ft_memset(dst, 0, nbyte);
 }

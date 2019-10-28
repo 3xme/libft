@@ -6,13 +6,11 @@
 /*   By: abiari <abiari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 17:02:03 by abiari            #+#    #+#             */
-/*   Updated: 2019/10/14 08:19:33 by abiari           ###   ########.fr       */
+/*   Updated: 2019/10/23 18:01:01 by abiari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
-#include <string.h>
 
 char	*ft_strrchr(const char *s, int c)
 {

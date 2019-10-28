@@ -6,7 +6,7 @@
 /*   By: abiari <abiari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 10:05:30 by abiari            #+#    #+#             */
-/*   Updated: 2019/10/21 19:40:08 by abiari           ###   ########.fr       */
+/*   Updated: 2019/10/23 17:57:01 by abiari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 void	ft_lstadd_back(t_list **alst, t_list *new)
 {
+	t_list	*tmp;
+
+	tmp = *alst;
 	if (!new)
 		return ;
 	if (!*alst)
 	{
-		*alst = new;
-		new->next = NULL;
+		tmp = new;
 		return ;
 	}
-	while ((*alst)->next != NULL)
+	while (tmp->next != NULL)
 	{
-		(*alst) = (*alst)->next;
+		tmp = tmp->next;
 	}
-	new->next = NULL;
-	(*alst)->next = new;
+	tmp->next = new;
 }

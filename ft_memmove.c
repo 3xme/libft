@@ -6,7 +6,7 @@
 /*   By: abiari <abiari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 12:22:19 by abiari            #+#    #+#             */
-/*   Updated: 2019/10/23 12:20:27 by abiari           ###   ########.fr       */
+/*   Updated: 2019/10/14 07:57:56 by abiari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 
 	ptsrc = (unsigned char *)src;
 	ptdest = (unsigned char *)dest;
-	if (dest == NULL && src == NULL)
+	if (dest == NULL && (void*)src == NULL)
+	{
 		return (0);
-	if (ptsrc < ptdest && ptdest < ptsrc + n)
+	}
+	if (ptsrc < ptdest)
 	{
 		while (n > 0)
 		{

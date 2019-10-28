@@ -6,7 +6,7 @@
 /*   By: abiari <abiari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 09:20:38 by abiari            #+#    #+#             */
-/*   Updated: 2019/10/21 15:21:16 by abiari           ###   ########.fr       */
+/*   Updated: 2019/10/23 17:47:00 by abiari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ char	*ft_strnstr(const char *h, const char *n, size_t len)
 {
 	size_t i;
 
-	if (h == NULL)
-		return (NULL);
+	if (!h && !n && !len)
+		ft_strlen(h);
 	if (*n == '\0')
 		return ((char*)h);
 	i = ft_strlen(n);
